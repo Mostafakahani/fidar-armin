@@ -1,4 +1,4 @@
-import { Lock, Unlock, Bell, BellOff } from "lucide-react";
+import { Lock, Unlock, Bell, BellOff, PowerOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -30,6 +30,7 @@ export const Controls = ({ deviceNumber }: ControlsProps) => {
       lock: "قفل کردن درب‌ها",
       bell: "فعال کردن آژیر",
       silent: "غیرفعال کردن آژیر",
+      PowerOff:"خاموش کردن",
     };
 
     const message = messages[action];
@@ -43,6 +44,7 @@ export const Controls = ({ deviceNumber }: ControlsProps) => {
     { id: "lock", icon: Lock, tooltip: "قفل کردن" },
     { id: "bell", icon: Bell, tooltip: "زنگ" },
     { id: "silent", icon: BellOff, tooltip: "سکوت" },
+    { id: "PowerOff", icon: PowerOff, tooltip: "خاموش"},
   ];
 
   return (
