@@ -1,24 +1,37 @@
-# Use Node.js LTS
-FROM node:20-alpine
+# مرحله اول: ساخت (Build Stage)
+FROM node:20-alpine AS builder
 
-# Set working directory
-WORKDIR /
+# تنظیم دایرکتوری کاری
+WORKDIR /app
 
-# Copy package files
-COPY package.json package-lock.json* ./
-
+# کپی فایل‌های package و نصب وابستگی‌ها (شما می‌توانید برای محیط توسعه از --production=false استفاده کنید)
+COPY package.json package-lock.json ./
 RUN npm install -f
-# Copy the rest of the application
+
+# کپی بقیه کدهای پروژه
 COPY . .
 
-# Set production environment
+# تنظیم محیط به حالت production
 ENV NODE_ENV=production
 
-# Build the application
+# اجرای build برنامه (این مرحله خروجی build را در پوشه .next ایجاد می‌کند)
 RUN npm run build
 
-# Expose the port
+---
+
+# مرحله دوم: ساخت تصویر نهایی (Production Stage)
+FROM node:20-alpine
+
+WORKDIR /app
+
+# کپی خروجی build و node_modules از مرحله builder
+COPY --from=builder /app ./
+
+# تنظیم محیط به production
+ENV NODE_ENV=production
+
+# باز کردن پورت مورد نیاز (مثلاً 3000)
 EXPOSE 3000
 
-# Start the application
+# اجرای برنامه
 CMD ["npm", "start"]
