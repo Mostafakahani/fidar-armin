@@ -5,7 +5,7 @@ FROM node:20-alpine
 RUN apk add --no-cache tree
 
 # Set working directory
-WORKDIR /app
+WORKDIR /
 
 # Debug: List contents before copy
 RUN echo "Contents of build context before copy:"
