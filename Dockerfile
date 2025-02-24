@@ -2,13 +2,10 @@
 FROM node:20-alpine
 
 # Set working directory
-WORKDIR /app
+WORKDIR /
 
 # Copy package files
 COPY package.json package-lock.json* ./
-
-# Clean install dependencies
-RUN npm ci
 
 RUN npm install -f
 # Copy the rest of the application
